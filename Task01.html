@@ -8,7 +8,7 @@
             font-size: 1rem;
             font-weight: 400;
             line-height: 1.5;
-            color: #212529;            
+            color: #212529;
             background-color: #f2f2f2;
         }
 
@@ -20,7 +20,7 @@
         }
 
         input[type=text] {
-            width: 100%;
+            width: 30%;
             padding: 12px 20px;
             margin: 8px 0;
             display: inline-block;
@@ -30,7 +30,7 @@
         }
 
         input[type=submit] {
-            width: 100%;
+            width: 15%;
             background-color: #8672a3;
             color: white;
             padding: 14px 20px;
@@ -45,19 +45,83 @@
         }
 
         .main {
-            border-radius: 5px;            
             padding: 10px;
         }
 
         .images {
-            padding: 20px;
         }
 
         .images img {
             width: 50%;
-            float: left;            
+            height: 78%;
+            float: left;
+        }
+
+        .images div,
+        .images marquee {
+            font-size: 35;
+            font-weight: bold;
+            position: absolute;
+        }
+
+        .top-left {
+            color: green;
+            padding: 20px;
+        }
+
+        .top-right {
+            color: rgb(0, 132, 255);
+            width: 95%;
+            text-align: right;
+            padding: 20px;
+        }
+
+        .move {
+            padding-top: 20px;
         }
     </style>
+
+    <script>
+        function addTextOnImage() {
+
+            var text = document.getElementById("dtext").value;            
+            var location = document.getElementById("location").value;
+            
+            var leftElem = document.getElementsByClassName("top-left")[0];
+            var rightElem = document.getElementsByClassName("top-right")[0];
+            var moveElem = document.getElementsByClassName("move")[0];
+
+            switch(location) {
+                case "l":
+                case "L":
+                    leftElem.innerHTML = text;
+                    rightElem.innerHTML = "";
+                    moveElem.innerHTML = "";
+                    break;
+                case "r":
+                case "R":
+                    leftElem.innerHTML = "";
+                    rightElem.innerHTML = text;
+                    document.getElementsByClassName("move")[0].innerHTML = "";
+                    break;
+                case "m":
+                case "M":
+                    leftElem.innerHTML = "";
+                    rightElem.innerHTML = "";
+                    moveElem.innerHTML = text;
+                    break;
+                default:
+                    leftElem.innerHTML = text;
+                    rightElem.innerHTML = "";
+                    moveElem.innerHTML = "";
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById("dtext").addEventListener("input", addTextOnImage);
+            document.getElementById("location").addEventListener("input", addTextOnImage);
+        });
+    </script>
 </head>
 
 <body>
@@ -68,12 +132,17 @@
         <input type="text" id="dtext" placeholder="Enter text to display">
 
         <input type="text" id="location" placeholder="Enter L / R / M">
-
-        <input type="submit" value="Submit">
     </div>
     <div class="images">
+        <div class="top-left"></div>
+
+        <div class="top-right"></div>
+
+        <marquee direction="right" class="move"></marquee>
+
         <img src="LEFT 2.jpg">
         <img src="RIGHT 2.jpg">
     </div>
 </body>
+
 </html>
